@@ -4,7 +4,8 @@
   "description": "Backend para teste da empresa Bravi",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon --exec npm run babel-node -- src/server.js",
+    "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'"
   },
   "author": "Pedro Gallardo",
   "license": "ISC",
@@ -15,6 +16,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
     "nodemon": "^2.0.13"
   }
 }
