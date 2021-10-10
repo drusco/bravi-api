@@ -1,0 +1,20 @@
+{
+  "name": "bravi-backend",
+  "version": "1.0.0",
+  "description": "Backend para teste da empresa Bravi",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "author": "Pedro Gallardo",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "nodemon": "^2.0.13"
+  }
+}

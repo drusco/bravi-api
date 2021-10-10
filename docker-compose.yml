@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  api:
+    container_name: bravi-api
+    restart: always
+    build: .
+    ports:
+      - 3000:80
+    links:
+      - database
+  database:
+    container_name: db
+    image: mongo:3.6.1
+    restart: always
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+    ports:
+      - 3001:27017
+    command:
+      - mongod
+
+volumes:
+  mongodb:
+  mongodb_config:
