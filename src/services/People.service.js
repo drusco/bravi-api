@@ -4,20 +4,16 @@ export default class PeopleService extends Service {
     constructor() {
         super();
     }
-    async get (id) {
-        const db = await this.getMongoDatabase()
-        const people = db && await db.collection('people').find({})
-        return []
+    static async getPeople (id) {
+        return await Service.get('people', id)
     }
-    async create(person) {
-        const db = await this.getMongoDatabase()
-        const insert = db && await db.collection('people').insertOne(person)
-        return insert
+    static async createPerson(person) {
+        return await Service.create('people', person)
     }
-    async update() {
-
+    static async updatePerson(id, data) {
+        return await Service.update('people', id, data)
     }
-    async delete() {
-
+    static async deletePerson(id) {
+        return await Service.delete('people', id)
     }
 }

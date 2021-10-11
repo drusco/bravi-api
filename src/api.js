@@ -4,6 +4,7 @@ import controllers from './controllers'
 
 export const api = express()
 
+api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 
 controllers.forEach(controller => controller(api))

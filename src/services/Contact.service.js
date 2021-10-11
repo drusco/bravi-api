@@ -4,16 +4,16 @@ export default class ContactService extends Service {
     constructor() {
         super();
     }
-    get () {
-
+    static async getContact (id) {
+        return await Service.get('contact', id)
     }
-    create() {
-
+    static async createContact(person) {
+        return await Service.create('contact', person)
     }
-    update() {
-
+    static async updateContact(id, data) {
+        return await Service.update('contact', id, data)
     }
-    delete() {
-
+    static async deleteContact(id) {
+        return await Service.delete('contact', id)
     }
 }
