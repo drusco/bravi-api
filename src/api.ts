@@ -1,6 +1,7 @@
 import express from 'express'
 import controllers from './controllers'
 
+const dev = process.env.NODE_ENV === 'development'
 export const api = express()
 
 api.use(express.json())
@@ -17,6 +18,6 @@ api.use((err: any, req: any, res: any, next: any) => {
   res.status(500).json({
     code: err.code || 500,
     message: err.message,
-    stack: err.stack
+    stack: dev ? err.stack : undefined
   })
 })

@@ -28,7 +28,7 @@ export default class DatabaseRepository {
   static async mongoCreate (collection: string, ...args: any) {
     const db = await DatabaseRepository.getMongoDatabase()
     const row = db && await db.collection(collection).insertMany(...args)
-    return !!(row && row.insertedIds.length)
+    return !!(row && row.insertedCount)
   }
 
   static async mongoUpdate (collection: string, ...args: any) {
