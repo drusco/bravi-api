@@ -9,8 +9,15 @@ const connectionInfo = {
 }
 
 export default class Service {
-    private db;
-    async constructor() {
-        this.db = await mongodb.connect(connectionInfo)
+    async getMongoConnection() {
+        return await mongodb.connect(connectionInfo)
+    }
+    async getMongoDatabase() {
+        const conn = await this.getMongoConnection()
+        return conn && conn.db
+    }
+    async getMongoClient() {
+        const conn = await this.getMongoConnection()
+        return conn && conn.client
     }
 }
