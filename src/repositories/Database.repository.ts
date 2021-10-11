@@ -1,6 +1,5 @@
 import MongodbRepository from './Mongodb.repository'
 import { mongodbConfig } from '../config/MongodbConfig'
-import { ObjectId } from 'mongodb'
 
 export default class DatabaseRepository {
   static async getMongoConnection () {
@@ -21,33 +20,26 @@ export default class DatabaseRepository {
     return await MongodbRepository.disconnect(await DatabaseRepository.getMongoConnection())
   }
 
-  static async mongoGet (collection: string, id: string) {
+  static async mongoGet (collection: string, ...args: any) {
     const db = await DatabaseRepository.getMongoDatabase()
-    if (id) {
-      return db && await db.collection(collection).findOne({ _id: new ObjectId(id) })
-    }
-    return db && await db.collection(collection).find().toArray()
+    return (db && await db.collection(collection).find(...args).toArray()) || []
   }
 
-  static async mongoCreate (collection: string, object: object) {
+  static async mongoCreate (collection: string, ...args: any) {
     const db = await DatabaseRepository.getMongoDatabase()
-    const row = db && await db.collection(collection).insertOne(object)
-    return !!(row && row.insertedId)
+    const row = db && await db.collection(collection).insertMany(...args)
+    return !!(row && row.insertedIds.length)
   }
 
-  static async mongoUpdate (collection: string, id: string, data: object) {
+  static async mongoUpdate (collection: string, ...args: any) {
     const db = await DatabaseRepository.getMongoDatabase()
-    const row = db && await db.collection(collection).updateOne({ _id: new ObjectId(id) }, { $set: data })
+    const row = db && await db.collection(collection).updateMany(...args)
     return !!(row && row.modifiedCount)
   }
 
-  static async mongoDelete (collection: string, id: string) {
+  static async mongoDelete (collection: string, ...args: any) {
     const db = await DatabaseRepository.getMongoDatabase()
-    if (id) {
-      const row = db && await db.collection(collection).deleteOne({ _id: new ObjectId(id) })
-      return !!(row && row.deletedCount)
-    }
-    const deleted = db && db.collection(collection).deleteMany()
+    const deleted = db && db.collection(collection).deleteMany(...args)
     return !!(deleted && deleted.deletedCount)
   }
 }
