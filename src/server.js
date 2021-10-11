@@ -9,5 +9,5 @@ api.get('/', (req, res) => {
 })
 
 api.listen(process.env.PORT, () => {
-    console.log(`Example app listeppning at http://localhost:${process.env.PORT}`)
+    console.log(`Example app listening at http://localhost:${process.env.PORT}`)
 })

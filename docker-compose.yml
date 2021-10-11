@@ -6,9 +6,11 @@ services:
     restart: always
     build: .
     ports:
-      - 3000:80
+      - 3000:3000
     links:
       - database
+    volumes:
+      - "./src:/bravi-api/src"
   database:
     container_name: db
     image: mongo:3.6.1

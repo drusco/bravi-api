@@ -2,12 +2,17 @@ FROM node:12.16.3
 
 WORKDIR /bravi-api
 
-ENV PORT 80
+COPY package.json /bravi-api
 
-COPY package.json /bravi-api/package.json
-
-RUN npm install
+RUN yarn install
 
 COPY . /bravi-api
 
-CMD ["node", "src/server.js"]
+EXPOSE 3000
+
+#DEVELOP
+CMD ["yarn", "dev"]
+
+#PRODUCTION
+#RUN npm run build
+#CMD ["yarn", "start"]

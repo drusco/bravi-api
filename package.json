@@ -4,14 +4,14 @@
   "description": "Backend para teste da empresa Bravi",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon --exec npm run babel-node -- src/server.js",
-    "babel-node": "babel-node --presets='@babel/preset-env' --ignore='foo|bar|baz'"
+    "dev": "nodemon --legacy-watch --exec babel-node -- src/server.js"
   },
   "author": "Pedro Gallardo",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^4.1.3"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
