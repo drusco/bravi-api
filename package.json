@@ -4,7 +4,8 @@
   "description": "Backend para teste da empresa Bravi",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon --legacy-watch --exec babel-node -- src/server.js"
+    "dev": "nodemon --exec babel-node -- src/server.js",
+    "migrate": "migrate-mongo"
   },
   "author": "Pedro Gallardo",
   "license": "ISC",

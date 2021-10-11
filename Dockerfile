@@ -8,8 +8,6 @@ RUN yarn install
 
 COPY . /bravi-api
 
-EXPOSE 3000
-
 #DEVELOP
 CMD ["yarn", "dev"]
 
