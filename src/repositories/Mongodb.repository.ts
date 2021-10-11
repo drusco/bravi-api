@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb'
+import { Db, MongoClient } from 'mongodb'
 import { MongoConfig } from '../types/MongoConfig'
 import { MongoConnection } from '../types/MongoConnection'
 const connections = new WeakMap()
@@ -15,11 +15,11 @@ export default class MongodbRepository {
     if (!cache.promise) {
       const conn = <MongoConnection>{}
       cache.promise = MongoClient.connect(uri)
-        .then((client) => {
+        .then((client: MongoClient) => {
           conn.client = client
           return client.db(database)
         })
-        .then((db) => {
+        .then((db: Db) => {
           conn.db = db
           cache.conn = conn
         })

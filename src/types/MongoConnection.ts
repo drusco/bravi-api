@@ -1,4 +1,6 @@
+import { Db, MongoClient } from 'mongodb'
+
 export interface MongoConnection {
-    db: object,
-    client: object
+    db: Db,
+    client: MongoClient
 }
