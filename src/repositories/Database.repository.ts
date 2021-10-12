@@ -39,7 +39,7 @@ export default class DatabaseRepository {
 
   static async mongoDelete (collection: string, ...args: any) {
     const db = await DatabaseRepository.getMongoDatabase()
-    const deleted = db && db.collection(collection).deleteMany(...args)
+    const deleted = db && await db.collection(collection).deleteMany(...args)
     return !!(deleted && deleted.deletedCount)
   }
 }
