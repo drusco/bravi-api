@@ -15,8 +15,11 @@ api.use((req: any, res: any, next: any) => {
 })
 
 api.use((err: any, req: any, res: any, next: any) => {
-  res.status(err.status || 500).json({
-    code: err.code || err.status || 500,
+  const code = err.code || err.status || 500
+  res.status(err.status || 500)
+  if (!err.message) return res.end()
+  res.json({
+    code,
     message: err.message,
     stack: dev ? err.stack : undefined
   })
