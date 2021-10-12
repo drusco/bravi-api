@@ -5,7 +5,7 @@ import DatabaseRepository from '../repositories/Database.repository'
 export default class ContactService {
   static async get (req: Request, res: Response, next: NextFunction) {
     const { params } = req
-    if (!ObjectId.isValid(params.id)) return next()
+    if (!ObjectId.isValid(params.id)) return next(Object.assign(Error('Not Acceptable'), { status: 406 }))
     res.json(await DatabaseRepository.mongoGet('contact', { _id: new ObjectId(params.id) }).catch(next))
   }
 
@@ -17,13 +17,13 @@ export default class ContactService {
 
   static async update (req: Request, res: Response, next: NextFunction) {
     const { body, params } = req
-    if (!ObjectId.isValid(params.id)) return next()
+    if (!ObjectId.isValid(params.id)) return next(Object.assign(Error('Not Acceptable'), { status: 406 }))
     res.json(await DatabaseRepository.mongoUpdate('contact', { _id: new ObjectId(params.id) }, { $set: body }).catch(next))
   }
 
   static async delete (req: Request, res: Response, next: NextFunction) {
     const { params } = req
-    if (!ObjectId.isValid(params.id)) return next()
+    if (!ObjectId.isValid(params.id)) return next(Object.assign(Error('Not Acceptable'), { status: 406 }))
     res.json(await DatabaseRepository.mongoDelete('contact', { _id: new ObjectId(params.id) }).catch(next))
   }
 }
