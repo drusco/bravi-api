@@ -21,6 +21,6 @@
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/__mocks__",
-    "jest.config.js"
+    "jest.config"
   ]
 }
