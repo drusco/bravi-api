@@ -18,16 +18,19 @@ api.use((req: Request, res: Response, next: NextFunction) => {
 api.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const validationError = isCelebrateError(err)
   const code = validationError ? 400 : (err.code || err.status || 500)
+
   res.status(code)
   if (!err.message) return res.end()
+
+  let details: any[] = []
+  if (validationError) {
+    details = Array.from(err.details).map(([source, error]) => ({ source, details: error.details.map(detail => detail.message) }))
+  }
+
   res.json({
     code,
     message: err.message,
     stack: dev ? err.stack : undefined,
-    validation: !validationError
-      ? undefined
-      : Array.from(err.details).map(
-        ([source, error]) => ({ source, details: error.details.map(detail => detail.message) })
-      )
+    validation: validationError && details.length ? details : undefined
   })
 })
