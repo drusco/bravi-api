@@ -1,5 +1,6 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import controllers from './controllers'
+import { isCelebrateError } from 'celebrate'
 
 const dev = process.env.NODE_ENV === 'development'
 export const api = express()
@@ -7,20 +8,26 @@ export const api = express()
 api.use(express.json())
 controllers.forEach(controller => controller(api))
 
-api.use((req: any, res: any, next: any) => {
+api.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
     code: 404,
     message: 'Not found'
   })
 })
 
-api.use((err: any, req: any, res: any, next: any) => {
-  const code = err.code || err.status || 500
-  res.status(err.status || 500)
+api.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  const validationError = isCelebrateError(err)
+  const code = validationError ? 400 : (err.code || err.status || 500)
+  res.status(code)
   if (!err.message) return res.end()
   res.json({
     code,
     message: err.message,
-    stack: dev ? err.stack : undefined
+    stack: dev ? err.stack : undefined,
+    validation: !validationError
+      ? undefined
+      : Array.from(err.details).map(
+        ([source, error]) => ({ source, details: error.details.map(detail => detail.message) })
+      )
   })
 })

@@ -1,10 +1,10 @@
 import { Db, MongoClient } from 'mongodb'
-import { MongoConfig } from '../types/MongoConfig'
-import { MongoConnection } from '../types/MongoConnection'
+import { MongoConfigType } from '../types/MongoConfig.type'
+import { MongoConnectionType } from '../types/MongoConnection.type'
 const connections = new WeakMap()
 
 export default class MongodbRepository {
-  static async connect (config: MongoConfig) {
+  static async connect (config: MongoConfigType) {
     const { uri, database } = config
     let cache = connections.get(config)
     if (!cache) {
@@ -13,7 +13,7 @@ export default class MongodbRepository {
     }
     if (cache.conn) return cache.conn
     if (!cache.promise) {
-      const conn = <MongoConnection>{}
+      const conn = <MongoConnectionType>{}
       cache.promise = MongoClient.connect(uri)
         .then((client: MongoClient) => {
           conn.client = client
@@ -28,7 +28,7 @@ export default class MongodbRepository {
     return cache.conn
   }
 
-  static async disconnect (conn: MongoConnection) {
+  static async disconnect (conn: MongoConnectionType) {
     if (conn && conn.client) {
       await conn.client.close()
     }
