@@ -3,15 +3,6 @@ import { MongoConfigType } from '../types/MongoConfig.type'
 import { MongoConnectionType } from '../types/MongoConnection.type'
 import { MongoClient } from 'mongodb'
 
-jest.mock('mongodb', () => ({
-  MongoClient: {
-    connect: jest.fn().mockResolvedValue({
-      db: jest.fn().mockResolvedValue({}),
-      close: jest.fn()
-    })
-  }
-}))
-
 describe('MongodbRepository test', () => {
   let connection: MongoConnectionType | undefined
 

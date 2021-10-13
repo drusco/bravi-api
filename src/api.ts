@@ -9,17 +9,14 @@ api.use(express.json())
 controllers.forEach(controller => controller(api))
 
 api.use((req: Request, res: Response, next: NextFunction) => {
-  res.status(404).json({
-    code: 404,
-    message: 'Not found'
-  })
+  next(Object.assign(Error('Not found'), { status: 404 }))
 })
 
 api.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const validationError = isCelebrateError(err)
   const code = validationError ? 400 : (err.code || err.status || 500)
 
-  res.status(code)
+  res.status(err.status || 500)
   if (!err.message) return res.end()
 
   let details: any[] = []

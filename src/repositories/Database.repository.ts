@@ -18,7 +18,7 @@ export default class DatabaseRepository {
 
   static async disconnectMongoClient () {
     const conn = await DatabaseRepository.getMongoConnection()
-    return !!(conn && await MongodbRepository.disconnect(conn))
+    conn && await MongodbRepository.disconnect(conn)
   }
 
   static async mongoGet (collection: string, ...args: any) {
