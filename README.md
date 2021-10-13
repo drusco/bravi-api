@@ -42,6 +42,6 @@ _Autor: Pedro Gallardo_
     - `PUT` /contact/update/:id
     - `DELETE` /contact/delete/:id?
 
-
+  
 * **Mongodb URI**
-`mongodb://bravi:TRV4654woskUdGf85@localhost:3001/?authSource=sandbox&readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`
+`mongodb://bravi:TRV4654woskUdGf85@localhost:3001/?authSource=sandbox&readPreference=primary&directConnection=true&ssl=false`
