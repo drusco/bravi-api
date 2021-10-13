@@ -1,10 +1,9 @@
 require('dotenv').config()
-const { MONGODB_URI, MONGODB_DATABASE } = process.env
 
-const config = {
+module.exports = {
   mongodb: {
-    url: MONGODB_URI,
-    databaseName: MONGODB_DATABASE,
+    url: process.env.MONGODB_URI,
+    databaseName: process.env.MONGODB_DATABASE,
     options: {
       useNewUrlParser: true, // removes a deprecation warning when connecting
       useUnifiedTopology: true // removes a deprecating warning when connecting
@@ -26,6 +25,3 @@ const config = {
   // if the file should be run.  Requires that scripts are coded to be run multiple times.
   useFileHash: false
 }
-
-// Return the config as a promise
-module.exports = config

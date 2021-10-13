@@ -5,12 +5,8 @@ import DatabaseRepository from '../repositories/Database.repository'
 export default class ContactService {
   static async get (req: Request, res: Response, next: NextFunction) {
     const { params } = req
-    let filter
-    if (params.id) {
-      if (!ObjectId.isValid(params.id)) return next(Object.assign(Error('ID is not valid'), { status: 406 }))
-      filter = { _id: new ObjectId(params.id) }
-    }
-    res.json(await DatabaseRepository.mongoGet('contact', filter).catch(next))
+    if (!ObjectId.isValid(params.personId)) return next(Object.assign(Error('ID is not valid'), { status: 406 }))
+    res.json(await DatabaseRepository.mongoGet('contact', { personId: params.personId }).catch(next))
   }
 
   static async create (req: Request, res: Response, next: NextFunction) {
